@@ -1,0 +1,100 @@
+#container-seller-page body {
+	font-family: "Open Sans", sans-serif;
+  }
+  
+  #container-seller-page {
+	display: flex;
+	width: 80%;
+	margin: 50px auto;
+  }
+  
+  #container-seller-page .left-div {
+	background-color: orange;
+	width: 33.33%;
+	text-align: center;
+	padding-left: 90px;
+	padding-right: 60px;
+  }
+  
+  #container-seller-page .left-div h1 {
+	font-size: 36px;
+	color: white;
+	margin-top: 50px;
+  }
+  
+  #container-seller-page .left-div p {
+	font-size: 15px;
+	color: white;
+	margin-top: 20px;
+  }
+  
+  #container-seller-page .contact-info {
+	margin-top: 50px;
+	padding-right: 300px;
+  }
+  
+  #container-seller-page .contact-info p {
+	font-size: 18px;
+	color: black;
+	margin-top: 20px;
+	display: inline-block;
+  }
+  
+  #container-seller-page .right-div {
+	background-color: lightgrey;
+	width: 66.67%;
+	border: 2px solid orange;
+	padding: 50px;
+	box-sizing: border-box;
+	text-align: center;
+  }
+  
+  #container-seller-page .form-group {
+	margin-top: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+  
+  #container-seller-page label {
+	width: 150px;
+	font-size: 18px;
+	text-align: right;
+	margin-right: 25px;
+  }
+  
+  #container-seller-page input[type="text"], input[type="number"], input[type="date"], textarea {
+	width: 300px;
+	height: 35px;
+	font-size: 18px;
+	padding-left: 10px;
+	box-sizing: border-box;
+  }
+  
+  #container-seller-page input[type="file"] {
+	width: 300px;
+	height: 35px;
+	font-size: 18px;
+	padding-left: 10px;
+	box-sizing: border-box;
+  }
+  
+  #container-seller-page textarea {
+	height: 100px;
+	padding: 10px;
+	resize: none;
+  }
+  
+  #container-seller-page #submit-button {
+	background-color: orange;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	margin-top: 25px;
+	cursor: pointer;
+	font-size: 18px;
+  }
+  
+  #container-seller-page #submit-button:hover {
+	background-color: darkorange;
+  }
