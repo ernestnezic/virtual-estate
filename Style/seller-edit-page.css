@@ -1,0 +1,51 @@
+.edit-property-container body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+  }
+  
+  .edit-property-container {
+    width: 80%;
+    margin: 50px auto;
+    padding: 30px;
+    border: 2px solid orange;
+    background-color: lightgrey;
+    text-align: left;
+  }
+  
+  .edit-property-container .form-field {
+    margin: 20px 0;
+  }
+  
+  .edit-property-container label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+  }
+  
+  .edit-property-container input[type="text"],
+  .edit-property-container input[type="date"],
+  .edit-property-container textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .edit-property-container input[type="submit"] {
+    width: auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: orange;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .edit-property-container .delete-btn {
+    background-color: white;
+    color: orange;
+    /* border: 2px solid black; */
+    margin-left: 20px;
+  }

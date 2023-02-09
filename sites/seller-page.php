@@ -57,68 +57,19 @@ echo '
 	  </div>
 ';
  
-// $username = $_POST['username'];
-// $password = $_POST['password'];
+$estate_name = $_POST['estate-name'];
+$estate_address = $_POST['estate-address'];
+$estate_price = $_POST['estate-price'];
+$sale_date = $_POST['sale-date'];
+$photos = $_FILE['property-photos'];
+$description = $_POST['property-description'];
 
-// if (isset($_POST['login'])) {
-//     /*
-//     * LOGIN KORISNIKA
-//     */ 
-//     // Check the user's credentials
-//     echo($username.' Pass:'.$password);
-//     $sql = "SELECT * FROM user WHERE username='$username' AND password='$password' AND status='seller'";
-//     $result = mysqli_query($conn, $sql);
-//     if (mysqli_num_rows($result) > 0) {
-//         // Login successful
-//         echo 'Login successful';
-//         // Start a new session and redirect to the buyer_page
-//         //session_start();
-//         //$_SESSION['username'] = $username;
-//         header("Location: index.php?page=seller-page");
-//     } else {
-//         echo "Error: incorrect username or password";
-//     }
+$sql = "INSERT INTO property (estate_name, estate_address, estate_price, sale_date, photos, description) VALUES ('$estate_name', '$estate_address', '$estate_price', '$sale_date', '$photos', '$description')";
+$result = mysqli_query($conn, $sql);
+echo("User created successfully");
 
-// } else if (isset($_POST['register'])) {
-//     /*
-//     *  REGISTRACIJA KORISNIKA
-//     */
-//     // Dohvaćanje podataka iz forme za registraciju POST metodom
-//     $name = $_POST['name'];
-//     $email = $_POST['email'];
-//     $phone = $_POST['phone'];
-
-//     // Provjera da li korisničko ime već postoji
-//     $sql = "SELECT * FROM user WHERE username = '$username'";
-
-//     $result = mysqli_query($conn, $sql);
-
-//     // Ako korisničko ime već postoji, prikazuje grešku
-//     if (mysqli_num_rows($result) > 0) {
-//       echo "Error: username already exists";
-//     } else {
-//       // Stvaranje novog usera i učitavanje njegovih podataka u bazu
-//       $sql = "INSERT INTO user (username, email, password, status) VALUES ('$username', '$email', '$password', 'seller')";
-//       $result = mysqli_query($conn, $sql);
-//       echo("User created successfully");
-
-//       // Dohvaćanje ID-a novog usera
-//       $userID = mysqli_insert_id($conn);
-
-//       // Stvaranje novog buyer-a i učitavanje njegovih podataka u bazu
-//       $sql = "INSERT INTO seller (userID, seller_name, seller_phone) VALUES ('$userID', '$name', '$phone')";
-//       $result = mysqli_query($conn, $sql);
-
-//       if ($result) {
-//         echo "New user and buyer created successfully";
-//       } else {
-//         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-//       }
-//     }
-
-//     // Zaustavljanje konekcije
-//     mysqli_close($conn);  
-// }
+// Zaustavljanje konekcije
+mysqli_close($conn); 
 
 
 

@@ -38,9 +38,15 @@ switch ($page) {
     case 'seller-page':
         include("seller-page.php");
         break;
+    case 'seller-edit-page':
+        include("seller-edit-page.php");
+        break;
     case 'seller-login':
         include("seller-login.php");
         break;
+    case 'buyer-property-list':
+        include("buyer-property-list.php");
+        break;    
     case 'admin-login':
         include("admin-login.php");
         break;
