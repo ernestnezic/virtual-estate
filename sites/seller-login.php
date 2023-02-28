@@ -1,5 +1,5 @@
 <?php 
-
+session_start();
 /*
  * SELLER REGISTER FORMA
 */
@@ -7,7 +7,6 @@
 
 //INCLUDES
 include("db-connection.php");
-
 
 /*
 * HTML FORMA ZA REGISTRACIJU / LOGIN KORISNIKA
@@ -82,11 +81,13 @@ if (isset($_POST['login'])) {
         // Login successful
         echo 'Login successful';
         // Start a new session and redirect to the buyer_page
-        //session_start();
-        //$_SESSION['username'] = $username;
-        header("Location: index.php?page=seller-page");
+        
+        $_SESSION['login'] = true;
+        $_SESSION['username'] = $username;
+        header("Location: index.php?page=seller-property-list");
     } else {
         echo "Error: incorrect username or password";
+        $_SESSION['login'] = false;
     }
 
 } else if (isset($_POST['register'])) {
@@ -121,6 +122,9 @@ if (isset($_POST['login'])) {
 
       if ($result) {
         echo "New user and buyer created successfully";
+        $_SESSION['login'] = true;
+        $_SESSION['username'] = $username;
+        header("Location: index.php?page=seller-property-list");
       } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
       }

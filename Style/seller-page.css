@@ -98,3 +98,19 @@
   #container-seller-page #submit-button:hover {
 	background-color: darkorange;
   }
+
+  .more-info-button {
+    background-color: #5e76bf;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-left: 45px;
+  }

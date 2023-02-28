@@ -48,7 +48,7 @@ echo '
 </div>
 ';
 
-$estate_name = $_POST['estate_name'];
+$estate_name = $_POST['estate-name'];
 $estate_address = $_POST['estate-address'];
 $estate_price = $_POST['estate-price'];
 $sale_date = $_POST['sale-date'];

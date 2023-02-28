@@ -46,7 +46,10 @@ switch ($page) {
         break;
     case 'buyer-property-list':
         include("buyer-property-list.php");
-        break;    
+        break;
+    case 'seller-property-list':
+        include("seller-property-list.php");
+        break;     
     case 'admin-login':
         include("admin-login.php");
         break;
