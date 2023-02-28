@@ -2,8 +2,6 @@
 
 session_start();
 
-
-
 /*
  * SELLER PAGE
 */
@@ -11,6 +9,99 @@ session_start();
 
 //INCLUDES
 // include("db-connection.php");
+
+
+
+
+
+//Back Button
+if (isset($_POST['back_button_click'])) {
+    header('Location: index.php?page=seller-property-list');
+    exit;
+}
+
+// Connect to the database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "digital-estate";
+
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Get form data
+if(isset($_POST['form-submit'])) {
+	$estate_name = $_POST['estate-name'];
+	$estate_address = $_POST['estate-address'];
+	$estate_price = $_POST['estate-price'];
+	$sale_date = $_POST['sale-date'];
+	$estate_description = $_POST['property-description'];
+
+
+	$target_dir = "/Applications/XAMPP/htdocs/php_programiranje-enezic_isimic/Assets/RealEstateImages/";
+	$file = $_FILES["property-photos"];
+	$name  = $_FILES["property-photos"]["name"];
+	$tmp_name = $_FILES["property-photos"]["tmp_name"];
+	echo("TMP Name".$tmp_name);
+	$name_array = explode(".", $name);
+    $ext = end($name_array);
+	$image_name = "img_" . time() . "." . $ext;
+	echo("Image Name: ".$image_name);
+	$target_file = $target_dir . $image_name;
+	echo("Target File: ".$target_file);
+	if ($file["error"] !== UPLOAD_ERR_OK) {
+        // Handle the error here
+        echo "Error uploading file: " . $file["error"];
+    } else {
+        // Move the file to the target directory
+		echo("Moving file to target directory");
+        if(move_uploaded_file($tmp_name, $target_file)) {
+			echo "File uploaded successfully";
+		} else {
+			echo "File upload failed";
+		}
+    }
+	
+	$relative_path = "../Assets/RealEstateImages/" . $image_name;
+
+
+	// Get the current user's username
+	$seller_username = $_SESSION['username'];
+	echo('Seller Username: '.$seller_username);
+
+	// Get the sellerID of the current user
+	$sql = "SELECT s.IDseller FROM seller s
+			JOIN user u ON s.userID = u.IDuser
+			WHERE u.username = '$seller_username'";
+	$result = mysqli_query($conn, $sql);
+	$seller = mysqli_fetch_assoc($result);
+	$sellerID = $seller['IDseller'];
+
+	// Insert the property data into the property table
+	$sql = "INSERT INTO property (property_name, property_valuation, property_adress, sale_deadline, sellerID, property_description)
+			VALUES ('$estate_name', '$estate_price', '$estate_address', '$sale_date', '$sellerID', '$estate_description')";
+
+	if (mysqli_query($conn, $sql)) {
+		$propertyID = mysqli_insert_id($conn); // Get the propertyID of the inserted property
+
+
+		// Insert the photo data into the photo table
+		$sql = "INSERT INTO photo (propertyID, photo_path)
+				VALUES ('$propertyID', '$relative_path')";
+		mysqli_query($conn, $sql);
+		header('Location: index.php?page=seller-property-list');
+		exit;
+	} else {
+		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+	}
+}
+
+
+mysqli_close($conn);
+
 
 
 /*
@@ -30,7 +121,7 @@ echo '
 		  </div>
 		</div>
 		<div class="right-div">
-		  <form action="#" method="POST">
+		  <form action="#" method="POST" enctype="multipart/form-data">
 			<div class="form-group">
 			  <label for="estate-name">Estate Name:</label>
 			  <input type="text" id="estate-name" name="estate-name" required>
@@ -49,13 +140,13 @@ echo '
 			</div>
 			<div class="form-group">
 			  <label for="property-photos">Upload photos:</label>
-			  <input type="file" id="property-photos" name="property-photos" multiple required>
+			  <input type="file" name="property-photos" />
 			</div>
 			<div class="form-group">
 			  <label for="property-description">Short description:</label>
 			  <textarea id="property-description" name="property-description" minlength="100" required></textarea>
 			</div>
-			<button type="submit" id="submit-button">PUBLISH NOW</button>
+			<button type="submit" id="submit-button" name="form-submit">PUBLISH NOW</button>
 		  </form>
 		</div>
 	  </div>
@@ -64,75 +155,4 @@ echo '
       </form>
 ';
 
-
-//Back Button
-if (isset($_POST['back_button_click'])) {
-    header('Location: index.php?page=seller-login.php');
-    exit;
-}
-
-// Connect to the database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "digital-estate";
-
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-// Get form data
-$estate_name = $_POST['estate-name'];
-$estate_address = $_POST['estate-address'];
-$estate_price = $_POST['estate-price'];
-$sale_date = $_POST['sale-date'];
-$estate_description = $_POST['property-description'];
-// echo("Estate Address: ".$estate_address);
-// echo("Estate Price: ".$estate_price);
-// echo("Estate Deadline: ".$estate_deadline);
-// echo("Estate Description: ".$estate_description);
-
-
-// Get the current user's username
-$seller_username = $_SESSION['username'];
-echo('Seller Username: '.$seller_username);
-
-// Get the sellerID of the current user
-$sql = "SELECT s.IDseller FROM seller s
-        JOIN user u ON s.userID = u.IDuser
-        WHERE u.username = '$seller_username'";
-$result = mysqli_query($conn, $sql);
-$seller = mysqli_fetch_assoc($result);
-$sellerID = $seller['IDseller'];
-echo('Seller ID: '.$sellerID);
-echo($estate_deadline);
-// Insert the property data into the property table
-$sql = "INSERT INTO property (property_name, property_valuation, property_adress, sale_deadline, sellerID, property_description)
-        VALUES ('$estate_name', '$estate_price', '$estate_address', '$sale_date', '$sellerID', '$estate_description')";
-
-if (mysqli_query($conn, $sql)) {
-    $propertyID = mysqli_insert_id($conn); // Get the propertyID of the inserted property
-    $target_dir = "../Assets/RealEstateImages/";
-    $image_name = $propertyID . "_" . basename($_FILES["image"]["name"]);
-    $target_file = $target_dir . $image_name;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-    move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
-    $relative_path = "../Assets/RealEstateImages/" . $image_name;
-
-    // Insert the photo data into the photo table
-    $sql = "INSERT INTO photo (propertyID, photo_path)
-            VALUES ('$propertyID', '$relative_path')";
-    mysqli_query($conn, $sql);
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-
-mysqli_close($conn);
-
 ?>
-
-
-
-
