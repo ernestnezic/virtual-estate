@@ -1,6 +1,7 @@
 <?php 
 session_start();
 
+
 // Connect to the database
 include("db-connection.php");
 
@@ -61,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (mysqli_num_rows($result) > 0) {
     // Loop through each property
     while ($row = mysqli_fetch_assoc($result)) {
+      $property_id = $row['IDProperty'];
       $property_name = $row['property_name'];
       $property_valuation = $row['property_valuation'];
       $property_description = $row['property_description'];
@@ -90,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <h5>'.$seller_name.'</h5>
               <small>Seller</small>
           </div>
-          <button class="more-info-button">Edit</button>
+          <a href="index.php?page=seller-edit-page&id='.$property_id.'" class="more-info-button">Edit</a>
           </div>
       </div>
       </div>
@@ -123,6 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (mysqli_num_rows($result) > 0) {
         // Loop through each property
         while ($row = mysqli_fetch_assoc($result)) {
+        $property_id = $row['IDProperty'];
         $property_name = $row['property_name'];
         $property_adress = $row['property_adress'];
         $property_description = $row['property_description'];
@@ -153,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h5>'.$seller_name.'</h5>
                     <small>Seller</small>
                 </div>
-                <button class="more-info-button">Edit</button>
+                <a href="index.php?page=seller-edit-page&id='.$property_id.'" class="more-info-button">Edit</a>
                 </div>
             </div>
             </div>

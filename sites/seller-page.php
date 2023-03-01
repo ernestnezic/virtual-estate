@@ -45,21 +45,21 @@ if(isset($_POST['form-submit'])) {
 	$file = $_FILES["property-photos"];
 	$name  = $_FILES["property-photos"]["name"];
 	$tmp_name = $_FILES["property-photos"]["tmp_name"];
-	echo("TMP Name".$tmp_name);
+	//echo("TMP Name".$tmp_name);
 	$name_array = explode(".", $name);
     $ext = end($name_array);
 	$image_name = "img_" . time() . "." . $ext;
-	echo("Image Name: ".$image_name);
+	//echo("Image Name: ".$image_name);
 	$target_file = $target_dir . $image_name;
-	echo("Target File: ".$target_file);
+	//echo("Target File: ".$target_file);
 	if ($file["error"] !== UPLOAD_ERR_OK) {
         // Handle the error here
         echo "Error uploading file: " . $file["error"];
     } else {
         // Move the file to the target directory
-		echo("Moving file to target directory");
+		//echo("Moving file to target directory");
         if(move_uploaded_file($tmp_name, $target_file)) {
-			echo "File uploaded successfully";
+			//echo "File uploaded successfully";
 		} else {
 			echo "File upload failed";
 		}
